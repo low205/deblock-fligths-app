@@ -8,3 +8,5 @@ include(
     "flights:app",
     "flights:domain",
 )
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
