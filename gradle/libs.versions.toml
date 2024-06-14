@@ -1,0 +1,185 @@
+[versions]
+jdk = "21"
+kotlin = "2.0.0"
+detekt = "1.23.6"
+coroutines = "1.7.3"
+kotest = "5.6.2"
+kotestMockServer = "1.2.1"
+kotestWireMock = "1.0.3"
+kotestExtraArbs = "2.1.2"
+resilience4j = "1.7.0"
+shadow = "8.1.1"
+arrow = "1.2.0"
+kotestArrow = "1.3.2"
+cafeine = "3.0.4"
+postgresql = "42.7.2"
+kotlinxJson = "1.6.0"
+kotlingLogging = "2.0.13"
+wiremock = "2.33.2"
+mockk = "1.13.7"
+testContainers = "1.15.2"
+ktor = "2.3.11"
+ktorAssertions = "4.4.3"
+
+[libraries]
+# Build plugins
+kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+gradlePlugins-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
+gradlePlugins-shadow = { module = "com.github.johnrengelman:shadow", version.ref = "shadow" }
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
+
+# Libraries
+
+# Cache
+caffeine-core = { module = "com.github.ben-manes.caffeine:caffeine", version.ref = "cafeine" }
+
+# Database
+jdbc-postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
+jooq-core = { module = "org.jooq:jooq" }
+
+# Arrow
+arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
+arrow-optics = { module = "io.arrow-kt:arrow-optics", version.ref = "arrow" }
+arrow-optics-ksp = { module = "io.arrow-kt:arrow-optics-ksp-plugin", version.ref = "arrow" }
+arrow-fx = { module = "io.arrow-kt:arrow-fx-coroutines", version.ref = "arrow" }
+
+# Kotlin
+kotlin-coroutine-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlin-coroutine-jdk8 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8", version.ref = "coroutines" }
+kotlin-coroutine-sl4j = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-slf4j", version.ref = "coroutines" }
+kotlin-serialisation-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxJson" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+kotlin-stdlibJdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+
+# Kotlin - Logging
+kotlin-logging-core = { module = "io.github.microutils:kotlin-logging", version.ref = "kotlingLogging" }
+
+# Ktor - Server
+ktor-server-auth = { module = "io.ktor:ktor-server-auth", version.ref = "ktor" }
+ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
+ktor-server-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-server-locations = { module = "io.ktor:ktor-server-locations", version.ref = "ktor" }
+ktor-server-resources = { module = "io.ktor:ktor-server-resources", version.ref = "ktor" }
+ktor-server-status-pages = { module = "io.ktor:ktor-server-status-pages", version.ref = "ktor" }
+ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
+ktor-server-data-conversion = { module = "io.ktor:ktor-server-data-conversion", version.ref = "ktor" }
+ktor-server-default-headers = { module = "io.ktor:ktor-server-default-headers", version.ref = "ktor" }
+ktor-server-double-receive = { module = "io.ktor:ktor-server-double-receive", version.ref = "ktor" }
+ktor-server-compression = { module = "io.ktor:ktor-server-compression", version.ref = "ktor" }
+ktor-server-call-id = { module = "io.ktor:ktor-server-call-id", version.ref = "ktor" }
+ktor-server-metrics-micrometer = { module = "io.ktor:ktor-server-metrics-micrometer", version.ref = "ktor" }
+ktor-server-core-jvm = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor" }
+ktor-resources-jvm = { module = "io.ktor:ktor-resources-jvm", version.ref = "ktor" }
+ktor-server-resources-jvm = { module = "io.ktor:ktor-server-resources-jvm", version.ref = "ktor" }
+ktor-testHost = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor" }
+
+# Ktor - Client
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+ktor-client-java = { module = "io.ktor:ktor-client-java", version.ref = "ktor" }
+ktor-client-resources = { module = "io.ktor:ktor-client-resources", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+
+# Resilience4j
+resilience4j-all = { module = "io.github.resilience4j:resilience4j-all", version.ref = "resilience4j" }
+resilience4j-kotlin = { module = "io.github.resilience4j:resilience4j-kotlin", version.ref = "resilience4j" }
+
+# Testing - Kotest
+testing-kotest-assertions-core = { module = "io.kotest:kotest-assertions-core-jvm", version.ref = "kotest" }
+testing-kotest-assertions-json = { module = "io.kotest:kotest-assertions-json-jvm", version.ref = "kotest" }
+testing-kotest-assertions-ktor = { module = "io.kotest:kotest-assertions-ktor-jvm", version.ref = "ktorAssertions" }
+testing-kotest-assertions-arrow = { module = "io.kotest.extensions:kotest-assertions-arrow", version.ref = "kotestArrow" }
+testing-kotest-property-arrow = { module = "io.kotest.extensions:kotest-property-arrow", version.ref = "kotestArrow" }
+testing-kotest-property-arrow-optics = { module = "io.kotest.extensions:kotest-property-arrow-optics", version.ref = "kotestArrow" }
+testing-kotest-mock-server = { module = "io.kotest.extensions:kotest-extensions-mockserver", version.ref = "kotestMockServer" }
+testing-kotest-wire-mock = { module = "io.kotest.extensions:kotest-extensions-wiremock", version.ref = "kotestWireMock" }
+testing-kotest-property = { module = "io.kotest:kotest-property-jvm", version.ref = "kotest" }
+testing-kotest-property-arbs = { module = "io.kotest.extensions:kotest-property-arbs", version.ref = "kotestExtraArbs" }
+testing-kotest-runner-jvm = { module = "io.kotest:kotest-runner-junit5-jvm", version.ref = "kotest" }
+testing-kotest-extensions-testcontainers = { module = "io.kotest.extensions:kotest-extensions-testcontainers", version = "2.0.2" }
+
+# Testing - Mockk
+testing-mockk-core = { module = "io.mockk:mockk", version.ref = "mockk" }
+
+# Testing - TestContainers
+testContainers-core = { module = "org.testcontainers:testcontainers", version.ref = "testContainers" }
+testContainers-postgresql = { module = "org.testcontainers:postgresql", version.ref = "testContainers" }
+testContainers-gcloud = { module = "org.testcontainers:gcloud", version.ref = "testContainers" }
+
+# Testing - WireMock
+testing-wiremock-core = { module = "com.github.tomakehurst:wiremock-jre8", version.ref = "wiremock" }
+
+[bundles]
+kotlin-core = [
+    "kotlin-stdlibJdk8",
+    "kotlin-reflect",
+    "kotlin-coroutine-core",
+    "kotlin-coroutine-sl4j",
+    "kotlin-coroutine-jdk8"
+]
+testing-core = [
+    "testing-kotest-runner-jvm",
+    "testing-kotest-assertions-core",
+    "testing-kotest-assertions-json",
+    "testing-kotest-assertions-ktor",
+    "testing-kotest-property",
+    "testing-mockk-core",
+    "testing-kotest-mock-server",
+    "testing-kotest-wire-mock",
+    "testing-kotest-assertions-arrow",
+    "testing-kotest-property-arrow",
+    "testing-kotest-property-arrow-optics",
+    "testing-kotest-property-arbs",
+    "testing-wiremock-core",
+]
+testing-testcontainers = [
+    "testing-kotest-extensions-testcontainers",
+    "testContainers-core",
+    "testContainers-postgresql",
+    "testContainers-gcloud",
+]
+resilience4j = [
+    "resilience4j-all",
+    "resilience4j-kotlin",
+]
+ktor-server = [
+    "kotlin-serialisation-json",
+    "ktor-server-auth",
+    "ktor-server-content-negotiation",
+    "ktor-server-serialization-kotlinx-json",
+    "ktor-server-locations",
+    "ktor-server-resources",
+    "ktor-server-netty",
+    "ktor-server-data-conversion",
+    "ktor-server-default-headers",
+    "ktor-server-compression",
+    "ktor-server-metrics-micrometer",
+    "ktor-server-call-id",
+    "ktor-server-status-pages",
+    "ktor-server-double-receive",
+]
+ktor-resources = [
+    "ktor-resources-jvm",
+    "ktor-server-core-jvm",
+    "ktor-server-resources-jvm",
+]
+ktor-client = [
+    "ktor-client-core",
+    "ktor-client-cio",
+    "ktor-client-java",
+    "ktor-client-content-negotiation",
+    "ktor-serialization-kotlinx-json",
+    "ktor-client-resources",
+]
+kotlin-arrow = [
+    "arrow-core",
+    "arrow-optics",
+    "arrow-fx",
+]
+ktor-test-host = [
+    "ktor-testHost",
+    "ktor-client-content-negotiation",
+    "ktor-serialization-kotlinx-json",
+    "ktor-client-resources",
+]
