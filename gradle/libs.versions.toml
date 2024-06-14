@@ -80,6 +80,7 @@ ktor-client-java = { module = "io.ktor:ktor-client-java", version.ref = "ktor" }
 ktor-client-resources = { module = "io.ktor:ktor-client-resources", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 
 # Resilience4j
 resilience4j-all = { module = "io.github.resilience4j:resilience4j-all", version.ref = "resilience4j" }
@@ -109,6 +110,9 @@ testContainers-gcloud = { module = "org.testcontainers:gcloud", version.ref = "t
 
 # Testing - WireMock
 testing-wiremock-core = { module = "com.github.tomakehurst:wiremock-jre8", version.ref = "wiremock" }
+
+# Business
+core-money = { module = "org.javamoney:moneta", version = "1.4.4" }
 
 [bundles]
 kotlin-core = [
@@ -171,6 +175,7 @@ ktor-client = [
     "ktor-client-content-negotiation",
     "ktor-serialization-kotlinx-json",
     "ktor-client-resources",
+    "ktor-client-logging",
 ]
 kotlin-arrow = [
     "arrow-core",

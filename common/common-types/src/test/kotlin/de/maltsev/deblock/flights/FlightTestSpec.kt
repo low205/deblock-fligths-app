@@ -11,15 +11,15 @@ import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.throwable.shouldHaveMessage
 import io.kotest.property.Arb
-import io.kotest.property.arbitrary.localDate
+import io.kotest.property.arbitrary.localDateTime
 import io.kotest.property.arbitrary.next
-import kotlin.time.Duration.Companion.days
+import kotlin.time.Duration.Companion.milliseconds
 
 class FlightTestSpec : BehaviorSpec({
 
-    val date = Arb.localDate().next()
-    val laterDate = date + 1.days
-    val earlierDate = date - 1.days
+    val date = Arb.localDateTime().next()
+    val laterDate = date + 1.milliseconds
+    val earlierDate = date - 1.milliseconds
 
     Given("Flight with same departure and arrival airports") {
         val airportCode = anAirportCode()
@@ -57,9 +57,10 @@ class FlightTestSpec : BehaviorSpec({
         }
 
         Then("Exception will be thrown") {
-            shouldThrow<IllegalArgumentException> {
-                block()
-            } shouldHaveMessage "Departure date must be before or equal to arrival date but was $laterDate and $earlierDate"
+            shouldThrow<IllegalArgumentException>(
+                block,
+            ) shouldHaveMessage "Departure date must be before or equal to arrival date " +
+                "but was $laterDate and $earlierDate"
         }
     }
 

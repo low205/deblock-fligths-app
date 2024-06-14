@@ -12,7 +12,8 @@ plugins {
 val libs = the<LibrariesForLibs>()
 
 dependencies {
-    api(libs.bundles.kotlin.core)
+    implementation(libs.bundles.kotlin.core)
+    implementation(libs.bundles.kotlin.arrow)
     testImplementation(libs.bundles.testing.core)
     testFixturesImplementation(libs.bundles.testing.core)
 }
@@ -66,5 +67,6 @@ tasks {
 }
 
 detekt {
+    autoCorrect = true
     toolVersion = versions("detekt")
 }

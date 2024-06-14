@@ -1,15 +1,23 @@
 package de.maltsev.deblock.flights
 
-import java.time.LocalDate
+import java.time.LocalDateTime
 import org.javamoney.moneta.Money
+
+enum class FlightProvider(
+    val displayName: String,
+) {
+
+    CRAZY_AIR("Crazy Air"),
+    TOUGH_JET("Tough Jet"),
+}
 
 data class Flight(
     val price: Money,
     val airline: AirlineName,
     val departure: AirportCode,
     val arrival: AirportCode,
-    val departureAt: LocalDate,
-    val arrivalAt: LocalDate,
+    val departureAt: LocalDateTime,
+    val arrivalAt: LocalDateTime,
 ) {
 
     init {
@@ -34,13 +42,15 @@ value class AirlineName(
     override fun toString(): String = name
 }
 
+private const val AIRPORT_CODE_LENGTH = 3
+
 @JvmInline
 value class AirportCode(
     val value: String,
 ) {
 
     init {
-        require(value.length == 3) { "Airport code must be 3 characters long" }
+        require(value.length == AIRPORT_CODE_LENGTH) { "Airport code must be 3 characters long" }
         require(value.all { it.isUpperCase() }) { "Airport code must be uppercase" }
         require(value.all { it.isLetter() }) { "Airport code must contain only letters" }
     }

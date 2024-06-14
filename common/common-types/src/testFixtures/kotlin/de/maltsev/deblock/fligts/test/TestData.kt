@@ -6,10 +6,10 @@ import de.maltsev.deblock.flights.Flight
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.double
 import io.kotest.property.arbitrary.filterNot
-import io.kotest.property.arbitrary.localDate
+import io.kotest.property.arbitrary.localDateTime
 import io.kotest.property.arbitrary.next
 import io.kotest.property.arbitrary.of
-import java.time.LocalDate
+import java.time.LocalDateTime
 import org.javamoney.moneta.Money
 
 object TestData {
@@ -70,9 +70,9 @@ object TestData {
         "CNY",
     )
 
-    fun anAmount() = Money.of(
-        Arb.double(0.01, 10000.0).next(),
-        Arb.of(knownCurrencies).next()
+    fun anAmount(): Money = Money.of(
+        Arb.double(0.01..10_000.0).next(),
+        Arb.of(knownCurrencies).next(),
     )
 
     fun anAirportCode(except: AirportCode? = null) = Arb.of(knowAirports)
@@ -84,8 +84,8 @@ object TestData {
         airline: AirlineName = anAirlineName(),
         departure: AirportCode = anAirportCode(),
         arrival: AirportCode = anAirportCode(except = departure),
-        departureAt: LocalDate = Arb.localDate().next(),
-        arrivalAt: LocalDate = Arb.localDate().next(),
+        departureAt: LocalDateTime = Arb.localDateTime().next(),
+        arrivalAt: LocalDateTime = Arb.localDateTime().next(),
     ) = Flight(
         price = money,
         airline = airline,

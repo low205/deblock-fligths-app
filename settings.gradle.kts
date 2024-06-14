@@ -7,6 +7,9 @@ include(
     "common:common-types",
     "flights:app",
     "flights:domain",
+    "flights:integration:crazy-air",
+    "flights:integration:flights-provider-api",
+    "flights:integration:tough-jet",
 )
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
