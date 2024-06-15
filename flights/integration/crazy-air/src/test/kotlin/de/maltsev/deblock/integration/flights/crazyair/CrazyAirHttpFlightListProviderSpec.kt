@@ -14,7 +14,6 @@ import de.maltsev.deblock.flights.Flight
 import de.maltsev.deblock.flights.FlightProvider.CRAZY_AIR
 import de.maltsev.deblock.fligts.test.TestData.anAirportCode
 import de.maltsev.deblock.http.client.HttpClients.createHttpClient
-import de.maltsev.deblock.integration.flights.crazyair.CrazyAirHttpFlightListProvider.CrazyAirClientConfig
 import de.maltsev.deblock.integration.flights.provider.FlightProviderError.InvalidRequest
 import de.maltsev.deblock.integration.flights.provider.FlightProviderError.ProviderUnavailable
 import de.maltsev.deblock.integration.flights.provider.FlightProviderError.RequestTimeout
@@ -55,10 +54,7 @@ class CrazyAirHttpFlightListProviderSpec : BehaviorSpec({
                 baseUrl = server.baseUrl(),
                 connectTimeout = 1.seconds,
                 requestTimeout = 2.seconds,
-            ),
-            config = CrazyAirClientConfig(
-                url = server.baseUrl(),
-                apiKey = key,
+                authToken = key,
             ),
         )
     }

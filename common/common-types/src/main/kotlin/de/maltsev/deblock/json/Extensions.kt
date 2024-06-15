@@ -8,7 +8,7 @@ import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 
-private fun fieldIsMissing(field: String): String = "Required field $field is missing"
+private fun fieldIsMissing(field: String): String = "Required field `$field` is missing"
 
 fun <T : Any?> JsonObject.get(field: String, extract: JsonElement.() -> T): T = requireNotNull(get(field)) {
     fieldIsMissing(field)
@@ -19,7 +19,12 @@ fun <T : Any?> JsonObject.find(field: String, extract: JsonElement.() -> T): T? 
     else -> value.extract()
 }
 
-val asString: JsonElement.() -> String = {
+fun JsonObject.string(field: String): String = get(field, asString)
+fun JsonObject.findString(field: String): String? = find(field, asString)
+fun JsonObject.int(field: String): Int = get(field, asInt)
+fun JsonObject.objectArray(field: String): List<JsonObject> = get(field, asJsonObjectArray)
+
+private val asString: JsonElement.() -> String = {
     jsonPrimitive.also {
         require(it.isString) {
             "Json element must be string"
@@ -27,8 +32,8 @@ val asString: JsonElement.() -> String = {
     }.content
 }
 
-val asInt: JsonElement.() -> Int = { jsonPrimitive.int }
+private val asInt: JsonElement.() -> Int = { jsonPrimitive.int }
 
-val asJsonObjectArray: JsonElement.() -> List<JsonObject> = {
+private val asJsonObjectArray: JsonElement.() -> List<JsonObject> = {
     jsonArray.map { it.jsonObject }
 }

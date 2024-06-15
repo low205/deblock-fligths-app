@@ -5,9 +5,8 @@ import de.maltsev.deblock.flights.AirportCode
 import de.maltsev.deblock.flights.Flight
 import de.maltsev.deblock.integration.flights.provider.FlightsSearchRequest
 import de.maltsev.deblock.integration.flights.provider.FlightsSearchResult
-import de.maltsev.deblock.json.asJsonObjectArray
-import de.maltsev.deblock.json.asString
-import de.maltsev.deblock.json.get
+import de.maltsev.deblock.json.objectArray
+import de.maltsev.deblock.json.string
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
@@ -25,15 +24,15 @@ internal object CrazyAirClientMapper {
     }
 
     internal fun JsonObject.toResponse() = FlightsSearchResult(
-        flights = get("results", asJsonObjectArray).map { it.toCommonFlight() },
+        flights = objectArray("results").map { it.toCommonFlight() },
     )
 
     private fun JsonObject.toCommonFlight() = Flight(
-        airline = get("airline", asString).let(::AirlineName),
-        price = get("price", asString).let(Money::parse),
-        departure = get("departureAirportCode", asString).let(::AirportCode),
-        arrival = get("destinationAirportCode", asString).let(::AirportCode),
-        departureAt = get("departureDate", asString).let(LocalDateTime::parse),
-        arrivalAt = get("arrivalDate", asString).let(LocalDateTime::parse),
+        airline = string("airline").let(::AirlineName),
+        price = string("price").let(Money::parse),
+        departure = string("departureAirportCode").let(::AirportCode),
+        arrival = string("destinationAirportCode").let(::AirportCode),
+        departureAt = string("departureDate").let(LocalDateTime::parse),
+        arrivalAt = string("arrivalDate").let(LocalDateTime::parse),
     )
 }

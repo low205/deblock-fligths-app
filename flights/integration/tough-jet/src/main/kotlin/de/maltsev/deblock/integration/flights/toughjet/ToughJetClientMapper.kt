@@ -7,10 +7,9 @@ import de.maltsev.deblock.integration.flights.provider.FlightsSearchRequest
 import de.maltsev.deblock.integration.flights.provider.FlightsSearchResult
 import de.maltsev.deblock.integration.flights.toughjet.ToughJetTotalPriceProvider.FlightPriceDetails
 import de.maltsev.deblock.integration.flights.toughjet.ToughJetTotalPriceProvider.totalPrice
-import de.maltsev.deblock.json.asInt
-import de.maltsev.deblock.json.asJsonObjectArray
-import de.maltsev.deblock.json.asString
-import de.maltsev.deblock.json.get
+import de.maltsev.deblock.json.int
+import de.maltsev.deblock.json.objectArray
+import de.maltsev.deblock.json.string
 import de.maltsev.deblock.math.Percentage
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.buildJsonObject
@@ -32,20 +31,20 @@ internal object ToughJetClientMapper {
     }
 
     internal fun JsonObject.toResponse() = FlightsSearchResult(
-        flights = get("flights", asJsonObjectArray).map { it.toCommonFlight() },
+        flights = objectArray("flights").map { it.toCommonFlight() },
     )
 
     private fun JsonObject.toCommonFlight() = Flight(
-        airline = get("carrier", asString).let(::AirlineName),
+        airline = string("carrier").let(::AirlineName),
         price = FlightPriceDetails(
-            basePrice = get("basePrice", asString).let(Money::parse),
-            tax = get("tax", asString).let(Money::parse),
-            discount = get("discount", asInt).let(Percentage::of),
+            basePrice = string("basePrice").let(Money::parse),
+            tax = string("tax").let(Money::parse),
+            discount = int("discount").let(Percentage::of),
         ).totalPrice(),
-        departure = get("departureAirportName", asString).let(::AirportCode),
-        arrival = get("arrivalAirportName", asString).let(::AirportCode),
-        departureAt = get("outboundDateTime", asString).let(Instant::parse).let(::utcLocalDateTime),
-        arrivalAt = get("inboundDateTime", asString).let(Instant::parse).let(::utcLocalDateTime),
+        departure = string("departureAirportName").let(::AirportCode),
+        arrival = string("arrivalAirportName").let(::AirportCode),
+        departureAt = string("outboundDateTime").let(Instant::parse).let(::utcLocalDateTime),
+        arrivalAt = string("inboundDateTime").let(Instant::parse).let(::utcLocalDateTime),
     )
 
     private fun utcLocalDateTime(instant: Instant): LocalDateTime = ofInstant(instant, UTC)

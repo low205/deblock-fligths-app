@@ -1,5 +1,8 @@
 import io.gitlab.arturbosch.detekt.Detekt
 import org.gradle.accessors.dm.LibrariesForLibs
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+import org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED
+import org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -10,13 +13,6 @@ plugins {
 }
 
 val libs = the<LibrariesForLibs>()
-
-dependencies {
-    implementation(libs.bundles.kotlin.core)
-    implementation(libs.bundles.kotlin.arrow)
-    testImplementation(libs.bundles.testing.core)
-    testFixturesImplementation(libs.bundles.testing.core)
-}
 
 repositories {
     mavenCentral()
@@ -40,6 +36,15 @@ tasks {
 
     withType<Test> {
         useJUnitPlatform()
+        testLogging {
+            events = setOf(FAILED, SKIPPED)
+            exceptionFormat = FULL
+            showExceptions = true
+            showCauses = true
+            showStackTraces = true
+            showStandardStreams = false
+        }
+        minHeapSize = "512M"
         systemProperty("kotest.framework.assertion.globalassertsoftly", true)
     }
 

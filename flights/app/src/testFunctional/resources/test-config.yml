@@ -1,0 +1,18 @@
+server:
+  port: ${port}
+  auth:
+    basic:
+      users:
+        - username: ${username}
+          password: ${password}
+integration:
+  toughJet:
+    url: ${toughJetUrl}
+    apiKey: ${toughJetApiKey}
+    connectionTimeout: PT1S
+    requestTimeout: PT2S
+  crazyAir:
+    url: ${crazyAirUrl}
+    apiKey: ${crazyAirApiKey}
+    connectionTimeout: PT1S
+    requestTimeout: PT2S

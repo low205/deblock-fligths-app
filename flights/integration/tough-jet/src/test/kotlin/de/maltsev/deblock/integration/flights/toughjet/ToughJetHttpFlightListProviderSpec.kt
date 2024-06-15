@@ -20,7 +20,6 @@ import de.maltsev.deblock.integration.flights.provider.FlightProviderError.Reque
 import de.maltsev.deblock.integration.flights.provider.FlightsSearchRequest
 import de.maltsev.deblock.integration.flights.provider.FlightsSearchResult
 import de.maltsev.deblock.integration.flights.provider.PassengerCount
-import de.maltsev.deblock.integration.flights.toughjet.ToughJetHttpFlightListProvider.ToughJetClientConfig
 import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.assertions.arrow.core.shouldBeRight
 import io.kotest.assertions.asClue
@@ -57,10 +56,7 @@ class ToughJetHttpFlightListProviderSpec : BehaviorSpec({
                 baseUrl = server.baseUrl(),
                 connectTimeout = 1.seconds,
                 requestTimeout = 2.seconds,
-            ),
-            config = ToughJetClientConfig(
-                url = server.baseUrl(),
-                apiKey = key,
+                authToken = key,
             ),
         )
     }
