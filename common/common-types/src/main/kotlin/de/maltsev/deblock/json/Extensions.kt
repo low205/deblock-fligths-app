@@ -3,6 +3,7 @@ package de.maltsev.deblock.json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.int
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -25,6 +26,8 @@ val asString: JsonElement.() -> String = {
         }
     }.content
 }
+
+val asInt: JsonElement.() -> Int = { jsonPrimitive.int }
 
 val asJsonObjectArray: JsonElement.() -> List<JsonObject> = {
     jsonArray.map { it.jsonObject }

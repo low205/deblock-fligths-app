@@ -1,7 +1,7 @@
 package de.maltsev.deblock.flights
 
-import java.time.LocalDateTime
 import org.javamoney.moneta.Money
+import java.time.LocalDateTime
 
 enum class FlightProvider(
     val displayName: String,

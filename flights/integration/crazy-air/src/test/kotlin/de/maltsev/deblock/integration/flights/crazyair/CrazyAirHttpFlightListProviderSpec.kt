@@ -14,7 +14,7 @@ import de.maltsev.deblock.flights.Flight
 import de.maltsev.deblock.flights.FlightProvider.CRAZY_AIR
 import de.maltsev.deblock.fligts.test.TestData.anAirportCode
 import de.maltsev.deblock.http.client.HttpClients.createHttpClient
-import de.maltsev.deblock.integration.flights.crazyair.CrazyAirClient.CrazyAirClientConfig
+import de.maltsev.deblock.integration.flights.crazyair.CrazyAirHttpFlightListProvider.CrazyAirClientConfig
 import de.maltsev.deblock.integration.flights.provider.FlightProviderError.InvalidRequest
 import de.maltsev.deblock.integration.flights.provider.FlightProviderError.ProviderUnavailable
 import de.maltsev.deblock.integration.flights.provider.FlightProviderError.RequestTimeout
@@ -39,18 +39,18 @@ import io.kotest.property.arbitrary.next
 import io.kotest.property.arbitrary.string
 import io.kotest.property.arbitrary.uInt
 import io.ktor.client.plugins.HttpRequestTimeoutException
+import org.javamoney.moneta.Money
 import java.time.LocalDateTime
 import kotlin.time.Duration.Companion.seconds
-import org.javamoney.moneta.Money
 
-class CrazyAirClientSpec : BehaviorSpec({
+class CrazyAirHttpFlightListProviderSpec : BehaviorSpec({
     val server = WireMockServer(DYNAMIC_PORT)
     listener(WireMockListener(server, PER_SPEC))
 
     val key = Arb.string(50, Codepoint.alphanumeric()).next()
 
     val client by lazy {
-        CrazyAirClient(
+        CrazyAirHttpFlightListProvider(
             client = createHttpClient(
                 baseUrl = server.baseUrl(),
                 connectTimeout = 1.seconds,

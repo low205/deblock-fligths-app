@@ -8,15 +8,15 @@ import de.maltsev.deblock.integration.flights.provider.FlightsSearchResult
 import de.maltsev.deblock.json.asJsonObjectArray
 import de.maltsev.deblock.json.asString
 import de.maltsev.deblock.json.get
-import java.time.LocalDateTime
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import org.javamoney.moneta.Money
+import java.time.LocalDateTime
 
 internal object CrazyAirClientMapper {
 
-    internal fun FlightsSearchRequest.toCrazyAirRequest(): JsonObject = buildJsonObject {
+    internal fun FlightsSearchRequest.toRequest(): JsonObject = buildJsonObject {
         put("origin", origin.value)
         put("destination", destination.value)
         put("departureDate", departureAt.toString())

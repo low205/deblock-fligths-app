@@ -9,8 +9,8 @@ import io.kotest.property.arbitrary.filterNot
 import io.kotest.property.arbitrary.localDateTime
 import io.kotest.property.arbitrary.next
 import io.kotest.property.arbitrary.of
-import java.time.LocalDateTime
 import org.javamoney.moneta.Money
+import java.time.LocalDateTime
 
 object TestData {
 
