@@ -16,10 +16,13 @@ import org.apache.commons.text.StringSubstitutor
 import java.io.File
 import java.io.File.createTempFile
 import java.lang.Runtime.getRuntime
+import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.seconds
 
 class TestFlightsApp {
 
+    val user: String = "test"
+    val password: String = "pass"
     val port = randomPort()
     val crazyAirServer = CrazyAirServer()
     val toughJetServer = ToughJetServer()
@@ -30,11 +33,11 @@ class TestFlightsApp {
             StringSubstitutor(
                 mapOf(
                     "port" to port,
-                    "username" to "test",
-                    "password" to "pass",
-                    "toughJetUrl" to "http://localhost:${crazyAirServer.port}/toughJet",
+                    "username" to user,
+                    "password" to password,
+                    "toughJetUrl" to "http://localhost:${toughJetServer.port}",
                     "toughJetApiKey" to toughJetServer.apiToken,
-                    "crazyAirUrl" to "http://localhost:${toughJetServer.port}/crazyAir",
+                    "crazyAirUrl" to "http://localhost:${crazyAirServer.port}",
                     "crazyAirApiKey" to crazyAirServer.apiToken,
                 ),
             ).replace(configContent)
@@ -53,6 +56,7 @@ class TestFlightsApp {
         baseUrl = "http://localhost:$port",
         maxConnectionsCount = 1,
         maxConnectionsPerRoute = 1,
+        requestTimeout = 1.days,
     )
 
     suspend fun awaitStart() {

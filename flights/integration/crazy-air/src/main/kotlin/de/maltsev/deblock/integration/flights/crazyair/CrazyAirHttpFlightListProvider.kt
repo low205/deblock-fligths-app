@@ -43,8 +43,8 @@ class CrazyAirHttpFlightListProvider(
         }
     }.map {
         when {
-            it.status >= InternalServerError -> providerUnavailable(it.body<String>()).left()
-            it.status >= BadRequest -> invalidRequest(it.body<String>()).left()
+            it.status >= InternalServerError -> providerUnavailable("${it.status} ${it.body<String>()}").left()
+            it.status >= BadRequest -> invalidRequest("${it.status} ${it.body<String>()}").left()
             else -> it.body<JsonObject>().toResponse().right()
         }
     }.recover {

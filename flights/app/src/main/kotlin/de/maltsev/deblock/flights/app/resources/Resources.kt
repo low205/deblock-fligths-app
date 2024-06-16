@@ -6,4 +6,7 @@ object Resources {
 
     @Resource("/health")
     object HealthCheck
+
+    @Resource("/search-flights")
+    object SearchFlights
 }

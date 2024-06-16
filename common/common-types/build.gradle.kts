@@ -17,5 +17,6 @@ dependencies {
 
     testImplementation(libs.bundles.testing.core)
 
+    testFixturesImplementation(libs.testing.kotest.property)
     testFixturesImplementation(libs.testing.kotest.property.arbs)
 }

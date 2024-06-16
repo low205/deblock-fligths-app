@@ -80,17 +80,17 @@ object TestData {
         .next()
 
     fun aFlight(
-        money: Money = anAmount(),
+        price: Money = anAmount(),
         airline: AirlineName = anAirlineName(),
         departure: AirportCode = anAirportCode(),
         arrival: AirportCode = anAirportCode(except = departure),
-        departureAt: LocalDateTime = Arb.localDateTime().next(),
-        arrivalAt: LocalDateTime = Arb.localDateTime().next(),
+        departureAt: LocalDateTime = Arb.localDateTime(maxLocalDateTime = LocalDateTime.now()).next(),
+        arrivalAt: LocalDateTime = Arb.localDateTime(minLocalDateTime = departureAt).next(),
     ) = Flight(
-        price = money,
+        price = price,
         airline = airline,
-        departure = departure,
-        arrival = arrival,
+        departureFrom = departure,
+        arrivalTo = arrival,
         departureAt = departureAt,
         arrivalAt = arrivalAt,
     )

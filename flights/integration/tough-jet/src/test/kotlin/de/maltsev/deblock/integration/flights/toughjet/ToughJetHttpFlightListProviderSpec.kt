@@ -67,13 +67,13 @@ class ToughJetHttpFlightListProviderSpec : BehaviorSpec({
     val returnAt = departureAt.plusDays(Arb.long(1L..10).next())
     val departureAtInstant = departureAt.atTime(LocalTime.of(10, 25)).toInstant(UTC)
     val returnAtInstant = returnAt.atTime(LocalTime.of(2, 30)).toInstant(UTC)
-    val passengerCount = Arb.uInt(1u..10u).next()
+    val passengerCount = Arb.uInt(1u..4u).next()
     val request = FlightsSearchRequest(
         origin = airportA,
         destination = airportB,
-        departureAt = departureAt,
-        returnAt = returnAt,
-        passengerCount = PassengerCount(adults = passengerCount),
+        departureDate = departureAt,
+        returnDate = returnAt,
+        numberOfPassengers = PassengerCount(adults = passengerCount),
     )
     val requestJson = """
         {
@@ -136,16 +136,16 @@ class ToughJetHttpFlightListProviderSpec : BehaviorSpec({
                         Flight(
                             price = Money.of(260, "EUR"),
                             airline = AirlineName("Japan Airlines"),
-                            departure = airportA,
-                            arrival = airportB,
+                            departureFrom = airportA,
+                            arrivalTo = airportB,
                             departureAt = LocalDateTime.ofInstant(departureAtInstant, UTC),
                             arrivalAt = LocalDateTime.ofInstant(returnAtInstant, UTC),
                         ),
                         Flight(
                             price = Money.of(32.5, "USD"),
                             airline = AirlineName("Turkish Airlines"),
-                            departure = airportA,
-                            arrival = airportB,
+                            departureFrom = airportA,
+                            arrivalTo = airportB,
                             departureAt = LocalDateTime.ofInstant(departureAtInstant, UTC),
                             arrivalAt = LocalDateTime.ofInstant(returnAtInstant, UTC),
                         ),
@@ -181,7 +181,8 @@ class ToughJetHttpFlightListProviderSpec : BehaviorSpec({
             Then("Client receives error") {
                 result.shouldBeLeft().asClue {
                     it.shouldBeInstanceOf<ProviderUnavailable>()
-                    it.message shouldBe """Tough Jet provider is unavailable: {"error": "Internal server error"}"""
+                    it.message shouldBe """ToughJet provider is unavailable: """ +
+                        """500 Server Error {"error": "Internal server error"}"""
                     it.provider shouldBe TOUGH_JET
                 }
 
@@ -214,7 +215,7 @@ class ToughJetHttpFlightListProviderSpec : BehaviorSpec({
             Then("Client receives error") {
                 result.shouldBeLeft().asClue {
                     it.shouldBeInstanceOf<InvalidRequest>()
-                    it.message shouldBe """Tough Jet request failed: {"error": "Invalid request"}"""
+                    it.message shouldBe """ToughJet request failed: 400 Bad Request {"error": "Invalid request"}"""
                     it.provider shouldBe TOUGH_JET
                 }
 
@@ -252,7 +253,7 @@ class ToughJetHttpFlightListProviderSpec : BehaviorSpec({
                 result.shouldBeLeft().asClue {
                     it.shouldBeInstanceOf<RequestTimeout>()
                     it.cause.shouldBeInstanceOf<HttpRequestTimeoutException>()
-                    it.message shouldBe "Tough Jet didn't reply in time"
+                    it.message shouldBe "ToughJet didn't reply in time"
                     it.provider shouldBe TOUGH_JET
                 }
 

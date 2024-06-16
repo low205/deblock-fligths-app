@@ -10,7 +10,7 @@ object BasicAuthentication {
 
     private const val provider = "basic-auth"
 
-    fun Route.serviceAuth(build: Route.() -> Unit) = authenticate(provider, build = build)
+    fun Route.basicAuth(build: Route.() -> Unit) = authenticate(provider, build = build)
 
     data class Credentials(
         private val value: Map<String, UserPasswordCredential>,

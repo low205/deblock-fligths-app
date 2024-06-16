@@ -13,6 +13,8 @@ dependencies {
     implementation(projects.flights.integration.toughJet)
 
     testImplementation(libs.bundles.testing.core)
+
+    testFunctionalImplementation(testFixtures(projects.common.commonTypes))
 }
 
 extra["mainClassName"] = "de.maltsev.deblock.flights.app.MainKt"

@@ -1,7 +1,9 @@
 package de.maltsev.deblock.flights.app.module
 
 import de.maltsev.deblock.flights.app.config.FlightsAppConfig
+import de.maltsev.deblock.flights.app.providers.FlightsAggregationProvider
 import de.maltsev.deblock.flights.app.resources.HealthCheckResource
+import de.maltsev.deblock.flights.app.resources.SearchFlightsResource
 
 class ApplicationModule(
     config: FlightsAppConfig,
@@ -13,10 +15,22 @@ class ApplicationModule(
 
     val healthCheckResource = HealthCheckResource()
 
+    val flightAggregationProvider = FlightsAggregationProvider(
+        providers = listOfNotNull(
+            integrationModule.crazyAirFlightListProvider,
+            integrationModule.toughJetFlightListProvider,
+        ),
+    )
+
+    val flightSearchResource = SearchFlightsResource(
+        flightsProvider = flightAggregationProvider,
+    )
+
     val serverModule = ServerModule(
         serverConfig = config.server,
         resources = listOf(
             healthCheckResource,
+            flightSearchResource,
         ),
     )
 

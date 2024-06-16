@@ -9,7 +9,7 @@ class IntegrationModule(
     integrationConfig: IntegrationConfig,
 ) {
 
-    val toughJetClient = integrationConfig.toughJet?.let {
+    val toughJetFlightListProvider = integrationConfig.toughJet?.let {
         ToughJetHttpFlightListProvider(
             client = createHttpClient(
                 baseUrl = it.url,
@@ -20,7 +20,7 @@ class IntegrationModule(
         )
     }
 
-    val crazyAirClient = integrationConfig.crazyAir?.let {
+    val crazyAirFlightListProvider = integrationConfig.crazyAir?.let {
         CrazyAirHttpFlightListProvider(
             client = createHttpClient(
                 baseUrl = it.url,

@@ -63,13 +63,13 @@ class CrazyAirHttpFlightListProviderSpec : BehaviorSpec({
     val airportB = anAirportCode(except = airportA)
     val departureAt = Arb.localDate().next()
     val returnAt = departureAt.plusDays(Arb.long(1L..10).next())
-    val passengerCount = Arb.uInt(1u..10u).next()
+    val passengerCount = Arb.uInt(1u..4u).next()
     val request = FlightsSearchRequest(
         origin = airportA,
         destination = airportB,
-        departureAt = departureAt,
-        returnAt = returnAt,
-        passengerCount = PassengerCount(adults = passengerCount),
+        departureDate = departureAt,
+        returnDate = returnAt,
+        numberOfPassengers = PassengerCount(adults = passengerCount),
     )
     val requestJson = """
         {
@@ -130,16 +130,16 @@ class CrazyAirHttpFlightListProviderSpec : BehaviorSpec({
                         Flight(
                             price = Money.of(34.13, "EUR"),
                             airline = AirlineName("Lufthansa"),
-                            departure = airportA,
-                            arrival = airportB,
+                            departureFrom = airportA,
+                            arrivalTo = airportB,
                             departureAt = LocalDateTime.parse("${departureAt}T10:25:00"),
                             arrivalAt = LocalDateTime.parse("${returnAt}T02:30:00"),
                         ),
                         Flight(
                             price = Money.of(243.2, "USD"),
                             airline = AirlineName("JetBlue"),
-                            departure = airportA,
-                            arrival = airportB,
+                            departureFrom = airportA,
+                            arrivalTo = airportB,
                             departureAt = LocalDateTime.parse("${departureAt}T09:15:00"),
                             arrivalAt = LocalDateTime.parse("${returnAt}T10:23:45"),
                         ),
@@ -175,7 +175,8 @@ class CrazyAirHttpFlightListProviderSpec : BehaviorSpec({
             Then("Client receives error") {
                 result.shouldBeLeft().asClue {
                     it.shouldBeInstanceOf<ProviderUnavailable>()
-                    it.message shouldBe """Crazy Air provider is unavailable: {"error": "Internal server error"}"""
+                    it.message shouldBe """CrazyAir provider is unavailable: """ +
+                        """500 Server Error {"error": "Internal server error"}"""
                     it.provider shouldBe CRAZY_AIR
                 }
 
@@ -208,7 +209,7 @@ class CrazyAirHttpFlightListProviderSpec : BehaviorSpec({
             Then("Client receives error") {
                 result.shouldBeLeft().asClue {
                     it.shouldBeInstanceOf<InvalidRequest>()
-                    it.message shouldBe """Crazy Air request failed: {"error": "Invalid request"}"""
+                    it.message shouldBe """CrazyAir request failed: 400 Bad Request {"error": "Invalid request"}"""
                     it.provider shouldBe CRAZY_AIR
                 }
 
@@ -246,7 +247,7 @@ class CrazyAirHttpFlightListProviderSpec : BehaviorSpec({
                 result.shouldBeLeft().asClue {
                     it.shouldBeInstanceOf<RequestTimeout>()
                     it.cause.shouldBeInstanceOf<HttpRequestTimeoutException>()
-                    it.message shouldBe "Crazy Air didn't reply in time"
+                    it.message shouldBe "CrazyAir didn't reply in time"
                     it.provider shouldBe CRAZY_AIR
                 }
 

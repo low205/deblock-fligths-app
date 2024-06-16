@@ -28,8 +28,8 @@ class FlightTestSpec : BehaviorSpec({
             Flight(
                 price = anAmount(),
                 airline = anAirlineName(),
-                departure = airportCode,
-                arrival = airportCode,
+                departureFrom = airportCode,
+                arrivalTo = airportCode,
                 departureAt = earlierDate,
                 arrivalAt = laterDate,
             )
@@ -49,8 +49,8 @@ class FlightTestSpec : BehaviorSpec({
             Flight(
                 price = anAmount(),
                 airline = anAirlineName(),
-                departure = departure,
-                arrival = arrival,
+                departureFrom = departure,
+                arrivalTo = arrival,
                 departureAt = laterDate,
                 arrivalAt = earlierDate,
             )
@@ -72,8 +72,8 @@ class FlightTestSpec : BehaviorSpec({
         val flight = Flight(
             price = price,
             airline = airline,
-            departure = departure,
-            arrival = arrival,
+            departureFrom = departure,
+            arrivalTo = arrival,
             departureAt = earlierDate,
             arrivalAt = laterDate,
         )
@@ -81,8 +81,8 @@ class FlightTestSpec : BehaviorSpec({
         Then("Flight is created") {
             flight.price shouldBe price
             flight.airline shouldBe airline
-            flight.departure shouldBe departure
-            flight.arrival shouldBe arrival
+            flight.departureFrom shouldBe departure
+            flight.arrivalTo shouldBe arrival
             flight.departureAt shouldBe earlierDate
             flight.arrivalAt shouldBe laterDate
         }
@@ -97,8 +97,8 @@ class FlightTestSpec : BehaviorSpec({
             Flight(
                 price = price,
                 airline = airline,
-                departure = departure,
-                arrival = arrival,
+                departureFrom = departure,
+                arrivalTo = arrival,
                 departureAt = date,
                 arrivalAt = date,
             )

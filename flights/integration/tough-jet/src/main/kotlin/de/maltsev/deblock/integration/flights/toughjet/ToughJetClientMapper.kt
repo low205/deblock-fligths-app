@@ -25,9 +25,9 @@ internal object ToughJetClientMapper {
     internal fun FlightsSearchRequest.toRequest(): JsonObject = buildJsonObject {
         put("from", origin.value)
         put("to", destination.value)
-        put("outboundDate", departureAt.toString())
-        put("inboundDate", returnAt.toString())
-        put("numberOfAdults", passengerCount.total().toInt())
+        put("outboundDate", departureDate.toString())
+        put("inboundDate", returnDate.toString())
+        put("numberOfAdults", numberOfPassengers.total().toInt())
     }
 
     internal fun JsonObject.toResponse() = FlightsSearchResult(
@@ -41,8 +41,8 @@ internal object ToughJetClientMapper {
             tax = string("tax").let(Money::parse),
             discount = int("discount").let(Percentage::of),
         ).totalPrice(),
-        departure = string("departureAirportName").let(::AirportCode),
-        arrival = string("arrivalAirportName").let(::AirportCode),
+        departureFrom = string("departureAirportName").let(::AirportCode),
+        arrivalTo = string("arrivalAirportName").let(::AirportCode),
         departureAt = string("outboundDateTime").let(Instant::parse).let(::utcLocalDateTime),
         arrivalAt = string("inboundDateTime").let(Instant::parse).let(::utcLocalDateTime),
     )

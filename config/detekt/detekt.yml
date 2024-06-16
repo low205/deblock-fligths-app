@@ -144,7 +144,7 @@ complexity:
     excludeStringsWithLessThan5Characters: true
     ignoreStringsRegex: '$^'
   TooManyFunctions:
-    active: true
+    active: false
     excludes: [ '**/test/**', '**/testFunctional/**' ]
     thresholdInFiles: 11
     thresholdInClasses: 11

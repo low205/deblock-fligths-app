@@ -7,22 +7,22 @@ enum class FlightProvider(
     val displayName: String,
 ) {
 
-    CRAZY_AIR("Crazy Air"),
-    TOUGH_JET("Tough Jet"),
+    CRAZY_AIR("CrazyAir"),
+    TOUGH_JET("ToughJet"),
 }
 
 data class Flight(
     val price: Money,
     val airline: AirlineName,
-    val departure: AirportCode,
-    val arrival: AirportCode,
+    val departureFrom: AirportCode,
+    val arrivalTo: AirportCode,
     val departureAt: LocalDateTime,
     val arrivalAt: LocalDateTime,
 ) {
 
     init {
-        require(departure != arrival) {
-            "Departure and arrival airports must be different, but were $departure"
+        require(departureFrom != arrivalTo) {
+            "Departure and arrival airports must be different, but were $departureFrom"
         }
         require(!departureAt.isAfter(arrivalAt)) {
             "Departure date must be before or equal to arrival date but was $departureAt and $arrivalAt"
@@ -56,4 +56,9 @@ value class AirportCode(
     }
 
     override fun toString(): String = value
+}
+
+enum class CabinClass {
+    ECONOMY,
+    BUSINESS,
 }

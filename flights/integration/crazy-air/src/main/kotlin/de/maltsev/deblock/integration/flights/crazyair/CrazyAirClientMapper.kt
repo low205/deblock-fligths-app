@@ -18,9 +18,9 @@ internal object CrazyAirClientMapper {
     internal fun FlightsSearchRequest.toRequest(): JsonObject = buildJsonObject {
         put("origin", origin.value)
         put("destination", destination.value)
-        put("departureDate", departureAt.toString())
-        put("returnDate", returnAt.toString())
-        put("passengerCount", passengerCount.total().toInt())
+        put("departureDate", departureDate.toString())
+        put("returnDate", returnDate.toString())
+        put("passengerCount", numberOfPassengers.total().toInt())
     }
 
     internal fun JsonObject.toResponse() = FlightsSearchResult(
@@ -30,8 +30,8 @@ internal object CrazyAirClientMapper {
     private fun JsonObject.toCommonFlight() = Flight(
         airline = string("airline").let(::AirlineName),
         price = string("price").let(Money::parse),
-        departure = string("departureAirportCode").let(::AirportCode),
-        arrival = string("destinationAirportCode").let(::AirportCode),
+        departureFrom = string("departureAirportCode").let(::AirportCode),
+        arrivalTo = string("destinationAirportCode").let(::AirportCode),
         departureAt = string("departureDate").let(LocalDateTime::parse),
         arrivalAt = string("arrivalDate").let(LocalDateTime::parse),
     )
