@@ -7,12 +7,12 @@ server:
           password: pass
 integration:
   toughJet:
-    url: https://tough-jet.com
+    url: http://tough-jet.com
     apiKey: "dGVzdC1hcGk="
     connectionTimeout: PT1S
     requestTimeout: PT2S
   crazyAir:
-    url: https://crazy-air.com
+    url: http://crazy-air.com
     apiKey: "Y3JhenktYW="
     connectionTimeout: PT1S
     requestTimeout: PT2S
