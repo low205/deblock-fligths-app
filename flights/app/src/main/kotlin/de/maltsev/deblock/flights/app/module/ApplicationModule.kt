@@ -2,8 +2,8 @@ package de.maltsev.deblock.flights.app.module
 
 import de.maltsev.deblock.flights.app.config.FlightsAppConfig
 import de.maltsev.deblock.flights.app.providers.FlightsAggregationProvider
-import de.maltsev.deblock.flights.app.resources.HealthCheckResource
-import de.maltsev.deblock.flights.app.resources.SearchFlightsResource
+import de.maltsev.deblock.flights.app.resources.health.HealthCheckResource
+import de.maltsev.deblock.flights.app.resources.flights.SearchFlightsResource
 
 class ApplicationModule(
     config: FlightsAppConfig,

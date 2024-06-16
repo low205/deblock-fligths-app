@@ -1,9 +1,11 @@
-package de.maltsev.deblock.flights.app.resources
+package de.maltsev.deblock.flights.app.resources.flights
 
 import de.maltsev.deblock.flights.app.providers.FlightsAggregationProvider
+import de.maltsev.deblock.flights.app.resources.CallPipeline
+import de.maltsev.deblock.flights.app.resources.Resource
 import de.maltsev.deblock.flights.app.resources.Resources.SearchFlights
-import de.maltsev.deblock.flights.app.resources.SearchFlightsResourceMapper.receiveSearchFlightsRequest
-import de.maltsev.deblock.flights.app.resources.SearchFlightsResourceMapper.toResponse
+import de.maltsev.deblock.flights.app.resources.flights.SearchFlightsResourceMapper.receiveSearchFlightsRequest
+import de.maltsev.deblock.flights.app.resources.flights.SearchFlightsResourceMapper.toResponse
 import de.maltsev.deblock.flights.app.server.auth.BasicAuthentication.basicAuth
 import io.ktor.server.application.call
 import io.ktor.server.resources.post

@@ -1,5 +1,6 @@
-package de.maltsev.deblock.flights.app.resources
+package de.maltsev.deblock.flights.app.resources.health
 
+import de.maltsev.deblock.flights.app.resources.Resource
 import de.maltsev.deblock.flights.app.resources.Resources.HealthCheck
 import de.maltsev.deblock.flights.app.server.response.respondJson
 import io.ktor.server.application.call

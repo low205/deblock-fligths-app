@@ -1,4 +1,4 @@
-package de.maltsev.deblock.flights.app.resources
+package de.maltsev.deblock.flights.app.resources.flights
 
 import de.maltsev.deblock.flights.AirportCode
 import de.maltsev.deblock.flights.app.providers.AggregatedFlight
